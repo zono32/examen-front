@@ -1,37 +1,30 @@
 name: Exam-recu-DAW
+
 on: push
+
 jobs:
-    nombres:
-      runs-on: ubuntu-latest
-      steps:
-         - 
-           name: nombre de usuario
-           run: echo ${{github.actor}}
-         - 
-            name: nombre repositorio
-            run: echo ${{github.repository}}
-         - 
-            name: nombre rama
-            run: echo ${{github.ref_name}}
-        
-    deploy:
-      runs-on: ubuntu-latest
-  
-      steps:
-        - name: 🔄 Checkout del repositorio
-          uses: actions/checkout@v4
-  
-        - name: 🔨 Construir la imagen Docker
-          run: docker build calculadora .
-  
-        - name: 🚀 Install Vercel CLI
-          run: npm install -g vercel
-  
-        - name: 🔑 Autenticarse en Vercel
-          run: vercel login
-          env:
-            VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-  
-        - name: 📦 Deploy to Vercel using Docker
-          run: vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN }} 
-        
+  nombres:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📛 Nombre de usuario
+        run: echo ${{ github.actor }}
+      - name: 📂 Nombre repositorio
+        run: echo ${{ github.repository }}
+      - name: 🌿 Nombre rama
+        run: echo ${{ github.ref_name }}
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: 🔨 Construir la imagen Docker
+        run: docker build -t calculadora .
+
+      - name: 🚀 Instalar Vercel CLI
+        run: npm install -g vercel
+
+      - name: 📦 Desplegar en Vercel
+        run: vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
